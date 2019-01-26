@@ -1,3 +1,5 @@
+--TODO use random access file to store world data before each edit
+--(would be alot to keep on ram otherwise)
 theincgi.worldEdit.history = theincgi.worldEdit.history or {}
 local history = theincgi.worldEdit.history
 history.prev = {} --for undo
