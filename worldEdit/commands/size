@@ -1,0 +1,28 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+return {
+  author = "TheINCGI",
+  desc = {"&Nsize&f",
+    "Get the dimensions of the current selection",
+  },
+  func = function(...)
+    local p1 = theincgi.worldEdit.pos1
+    local p2 = theincgi.worldEdit.pos2
+    if(p1 and p2) then
+      p1, p2 = p1:min(p2), p1:max(p2)+1
+      local dim = p2-p1
+      local area = 1
+      for i=1,3 do
+        area = dim[i]*area
+      end
+      dim[4] = area
+      log(string.format("&aSelection: &f<&e%d&f, &e%d&f, &e%d&f> (&b%d&f)",
+        table.unpack(dim)
+      ))
+    elseif(p1 or p2) then
+      log("&aSelection: &f<&e1&f, &e1&f, &e1&f> (&b1&f)")
+    else
+      log("&aSelection: &cNone")
+    end
+  end
+}

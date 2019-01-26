@@ -1,0 +1,32 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+return {
+  author = "TheINCGI",
+  desc = {"&Nshift&f [&e&Ndir&f] [&e&Namount&f]",
+    "Moves selection",
+    "north, east, south, west, up, down,\nx+, x-, y+, y-, z+ z-\n&dDefault:&f dir you are looking in",
+    "How far to move your selection\n&dDefault: &f1"
+  },
+  func = function(dirName, amount, ...)
+    if not dirName then
+      dirName = theincgi.worldEdit.getPlayerDir()
+      amount = 1
+    elseif not amount then
+      if(type(dirName)=="number")then
+        amount = dirName
+        dirName = theincgi.worldEdit.getPlayerDir()
+      else
+        amount = 1
+      end
+    end
+    --log(dirName)
+    local dir = theincgi.worldEdit.dirs[dirName]
+    if(amount < 0)then dir = -dir amount = -amount end
+    dir = dir*amount
+    we.pos1 = we.pos1 + dir
+    we.pos2 = we.pos2 + dir
+    
+    theincgi.worldEdit.updateSelection()
+    log("&7shifted "..amount)
+  end
+}

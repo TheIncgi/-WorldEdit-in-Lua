@@ -1,0 +1,10 @@
+return {
+  author = "TheINCGI",
+  desc = {"&f&NclearSelect", "clears ur selection"},
+  func = function()
+      theincgi.worldEdit.pos1 = nil
+      theincgi.worldEdit.pos2 = nil
+      theincgi.worldEdit.updateSelection()
+      log("&7Selection cleared")
+  end
+}

@@ -1,0 +1,21 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+return {
+  author = "TheINCGI",
+  desc = {"&Nfill&f <&b&Nblock&f> [&e&Ndmg&f]",
+    "minecrafts /fill",
+    "block id",
+    "meta data / dmg value",
+  },
+  func = function(block, dmg, ...)
+    local q1 = theincgi.worldEdit.pos1:min(theincgi.worldEdit.pos2)
+    local q2 = theincgi.worldEdit.pos1:max(theincgi.worldEdit.pos2)
+    local dat = q1..q2
+    dat[7] = block
+    dat[8] = dmg or 0
+    for a,b in ipairs(dat) do
+      log(a, ": ",b)
+    end
+    say(string.format("/fill %d %d %d %d %d %d %s %d", table.unpack(dat)))
+  end
+}

@@ -1,0 +1,27 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+
+
+
+return {
+  author = "TheINCGI",
+  desc = {"&Nmap&f",
+    "Shows help for minimap controls",
+  },
+  func = function(subCmd, ...)
+    subCmd = subCmd or ""
+    if subCmd == ""then
+      subCmd = "help"
+    end
+    if theincgi.worldEdit.miniMap and
+       theincgi.worldEdit.miniMap.commands then
+      if theincgi.worldEdit.miniMap.commands[subCmd] then
+        theincgi.worldEdit.miniMap.commands[subCmd].func(...)   
+      else
+        log("&B"..subCmd.."&c is not a valid map command\n&7use &B//map&7 for help")
+      end
+    else
+      log("&7&Bmap &7has not been loaded correctly")
+    end
+  end
+}

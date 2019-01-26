@@ -1,0 +1,44 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+local iVec = Vector:new({1,1,1})
+return {
+  author = "TheINCGI",
+  desc = {
+    "&f&Nstack&f [&e&NDIR&f] [&e&NTIMES&f]", 
+    "clone multiple times in a direction",
+    "north, east, south, west, up, down,\nx+, x-, y+, y-, z+ z-\nDefaults to dir you are looking in",
+    "how many times to clone, default is 1"
+  },
+  func = function(dirName, times)
+    local direction
+    if not dirName then
+      times = 1
+      direction = theincgi.worldEdit.getPlayerDir()
+    elseif not times then
+      if type(dirName)=="number" then
+        times = dirName
+        direction = theincgi.worldEdit.getPlayerDir()
+      else
+        times = 1
+        direction = dirName
+      end
+    else
+      direction = dirName
+    end
+    log("&7Stacking "..tostring(times).." "..tostring(direction))
+    direction = theincgi.worldEdit.dirs[direction]
+    local q1 = we.pos1:min(we.pos2)
+    local q2 = we.pos1:max(we.pos2)
+    local size = q2-q1+iVec
+    local delta = size:scale(direction)
+    local dirSum = direction:sum()
+    
+    local q3 = q1+delta
+    for a,b in ipairs(delta) do log(b)end
+    for i = 1, times do
+      log(string.format("&7/clone &a%d %d %d &b%d %d %d &d%d %d %d", table.unpack(q1..q2..q3)))
+      say(string.format("/clone %d %d %d %d %d %d %d %d %d", table.unpack(q1..q2..q3)))   
+      q3 = q3+delta
+    end
+  end
+}

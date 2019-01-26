@@ -1,0 +1,11 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+return {
+  author = "TheINCGI",
+  desc = {"&Ntimeon&f",
+    "Unfreezes time",
+  },
+  func = function(...)
+    say("/gamerule doDaylightCycle true")
+  end
+}

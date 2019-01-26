@@ -1,0 +1,44 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+
+local function isValid( v )
+  local a=getBlock(table.unpack(v))
+  local b=getBlock(table.unpack(v+we.dirs.up))
+  return( a and a.id=="minecraft:air" and b and b.id=="minecraft:air" or
+    (not (a or b)))
+    
+end
+
+return {
+  author = "TheINCGI",
+  desc = {"&Nthru&f [&e&NmaxDist&f]",
+    "Go through the wall to the next open space",
+    "Maximum distance to travel\n"..
+    "&dDefault: &f16"
+  },
+  func = function(maxDist, ...)
+    local start = Vector:new{getPlayerBlockPos()}
+    local dir = we.dirs[we.getPlayerDir()]
+    maxDist = maxDist or 16
+    
+    for j = 0, 5 do
+      if not isValid(start) then
+        break
+      end
+      start = start+dir
+    end
+    if isValid(start) then 
+      log("&7Too far from a wall to use &Bthru")
+      return
+    end
+    local name = getPlayer().name
+    for j = 1, maxDist do
+      start = start+dir
+      if isValid(start)then
+        say(string.format("/tp %s %d %d %d", name, table.unpack(start)))
+        return
+      end
+      
+    end
+  end
+}

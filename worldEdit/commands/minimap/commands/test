@@ -1,0 +1,12 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+local mm = theincgi.worldEdit.miniMap
+return {
+  author="Player23",
+  desc = {"&Ntest&f",
+    "Test the miniMap script",
+  },
+  func = function(...)
+    run("../testMap.lua")
+  end
+}

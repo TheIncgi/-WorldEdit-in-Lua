@@ -1,0 +1,24 @@
+--The minimap here is still under deveolpment and may change
+--in functionality
+--currently the image updates as it is scanning, will scan any loaded chunks
+--Todo: loop where it scans 'unscanned' chunks
+--Todo: save to file
+--Todo: multithreading
+--Todo: limit scanning to chunks nearest player while moving
+--Todo: load from file
+--Todo: command settings controls
+--Todo: PNG export of color and topography maps by region or all scanned chunks
+--Todo: replace player dot with a pointer to show direction
+--Todo: show other players on the map when in range
+--Todo: toggle other entities on the map
+--Todo: waypoints
+--Todo: Allow waypoints to be included in PNG export
+--Todo: Gui view where you can drag the map around to look at the whole thing
+--Todo: Warp to waypoint shortcuts
+--Todo: Allow gui to switch dimensions without having to go there
+--Todo: Allow user to manualy choose which map file to use
+--      incase of similarly named servers or connecting to a server through
+--      a different address (like localhost if you are hosting it)
+--Todo: show coords under map (toggleable)
+--Todo: fancy frame for map (toggleable)
+--Todo: Composite mode (combine color + topography)

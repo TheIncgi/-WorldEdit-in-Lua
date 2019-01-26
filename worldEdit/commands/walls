@@ -1,0 +1,30 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+return {
+  author = "TheINCGI",
+  desc = {"&Nwalls&f <&b&NblockID&f> [&e&Ndmg&f]",
+    "Creates a box with no top or bottom",
+    "block id",
+    "damage value/metadata",
+  },
+  func = function(blockID, dmg, ...)
+    dmg = dmg or 0
+    local q1 = we.pos1:min(we.pos2)
+    local q2 = we.pos1:max(we.pos2)
+    local tmp = q2:clone()
+    --floor
+    --tmp[2] = q1[2]
+    --say(string.format("/fill %d %d %d %d %d %d %s %d",table.unpack(q1..q2)))
+    tmp[1] = q1[1]
+    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(q1..tmp))..string.format("%s %d", blockID, dmg))
+    tmp = q2:clone()
+    tmp[3] = q1[3]
+    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(q1..tmp))..string.format("%s %d", blockID, dmg))
+    tmp = q1:clone()
+    tmp[1] = q2[1]
+    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(tmp..q2))..string.format("%s %d", blockID, dmg))
+    tmp = q1:clone()
+    tmp[3] = q2[3]
+    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(tmp..q2))..string.format("%s %d", blockID, dmg))
+  end
+}

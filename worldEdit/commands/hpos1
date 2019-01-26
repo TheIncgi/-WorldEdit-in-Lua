@@ -1,0 +1,14 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+return {
+  author = "TheINCGI",
+  desc = {
+    "&f&Nhpos1",
+    "set selection corner 1 from block looked at"},
+  func = function()
+    rtr = rayTrace(64)
+    theincgi.worldEdit.pos1 = Vector:new(rtr.pos)
+    theincgi.worldEdit.updateSelection()
+    log(string.format("&7Pos 1 set to <&f%d&7,&f%d&7,&f%d&7>", table.unpack(we.pos1)))
+  end
+}

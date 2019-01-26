@@ -1,0 +1,20 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+return {
+  author = "TheINCGI",
+  desc = {"&Nbutcher&f [&b&Ntype&f] <&e&Nradius&f>",
+    "kill all of some type of entity",
+    "type to kill\nEx:\n&aitem&f,\n&aplayer&f,\n&acow&f,\n&a!player&f\n...",
+    "radius defaults to 32"
+  },
+  func = function(sType,rad, ...)
+    if(sType == "hostile")then
+      local hostile = {"creeper","zombie","spider","witch","shulker","wither","skeleton"}
+      for i=1, #hostile do
+        say(string.format("/kill @e[type=%s,r=%d]", hostile[i], rad or 32))
+      end
+    else
+      say(string.format("/kill @e[type=%s,r=%d]", sType, rad or 32))
+    end    
+  end
+}

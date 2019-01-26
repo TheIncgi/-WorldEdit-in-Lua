@@ -1,0 +1,19 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+return {
+  author = "TheINCGI",
+  desc = {"&Nchunk&f",
+    "Select the chunk you are standing in",
+  },
+  func = function(...)
+    local x,_,z = getPlayerBlockPos()
+    local x,z = math.floor(x/16), math.floor(z/16)
+    
+    theincgi.worldEdit.pos1 = Vector:new{x*16, 0, z*16}
+    theincgi.worldEdit.pos2 = Vector:new{(x+1)*16-1, 255, (z+1)*16-1}
+    theincgi.worldEdit.updateSelection()
+    
+    log(string.format("&7Pos 1 set to <&f%d&7,&f%d&7,&f%d&7>", table.unpack(we.pos1)))
+    log(string.format("&7Pos 2 set to <&f%d&7,&f%d&7,&f%d&7>", table.unpack(we.pos2)))
+  end
+}

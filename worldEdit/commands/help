@@ -1,0 +1,20 @@
+return {
+  author = "TheINCGI",
+  desc = {
+    "&f&Nhelp&f [&e&Npage&f]",
+    "Show's this help menu\nAlias: &7//&8 (page 1)",
+    "Which page to view &dDefault: &f1"
+  },
+  func = function(pageNum)
+    if type(pageNum)=="string" then
+      log("&7&BTODO&7 search")
+    else
+      local aToZ = theincgi.worldEdit.aToZ
+      pageNum = pageNum or 1
+      pageNum = math.max(1, math.min(pageNum, theincgi.worldEdit.getPageCount( aToZ, 10 )))
+      --listCommands(category, prefix, aToZ, cmdList, helpCmd, pageNum, perPage, menuFlavor)
+      theincgi.worldEdit.listCommands("WORLD EDIT","//",aToZ,
+            theincgi.worldEdit.commands, "//help", pageNum, 10, "&7Ok, its not really. I lied. &d&BCAKE?")
+    end
+  end
+}

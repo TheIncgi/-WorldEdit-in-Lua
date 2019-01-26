@@ -1,0 +1,54 @@
+return {
+  author = "TheINCGI",
+  desc = {"&NgenNewCommand&f <&b&NcmdName&f> [&e&Nopt arg names...&f] ",
+    "Create a template file for a new command\n"..
+    "Commands with <> are &bREQUIRED&f\n"..
+    "Commands with [] are &eOPTIONAL&f\n\n"..
+    "&aNote:&f If you include the brackets with these args it will"..
+    "auto format the color for you",
+    "name of this command",
+    "name of each argument"
+  },
+  func = function(name, ...)
+    if filesystem.exists(name) then log("&cThat command already exists") return end
+    local file = filesystem.open(name,"w")
+    file.writeLine('local we = theincgi.worldEdit')
+    file.writeLine('local Vector = theincgi.Vector')
+    file.writeLine('return {')
+    file.writeLine(string.format('  author="%s",',getPlayer().name))
+    file.write('  desc = {"&N'..name.."&f")
+    local nDesc = 0
+    for a,b in pairs({...}) do
+      if b:sub(1,1)=="<" and b:sub(#b,#b)==">" then
+        file.write(string.format(" <&b&N%s&f>", b:sub(2,#b-1)))
+      elseif b:sub(1,1)=="[" and b:sub(#b,#b)=="]" then
+        file.write(string.format(" [&e&N%s&f]", b:sub(2,#b-1)))
+      else
+        file.write(string.format(" &b&N%s&f", b))
+      end
+      nDesc = nDesc+1
+    end
+    file.writeLine('",')
+    file.writeLine('    "Command Description ",')
+    for i = 1, nDesc do
+      file.writeLine('    "Description '..i..'",')
+    end
+    file.writeLine('  },')
+    file.write('  func = function(')
+    for a,b in pairs({...}) do
+      if b:sub(1,1)=="<" and b:sub(#b,#b)==">" then
+        file.write(b:sub(2,#b-1))
+      elseif b:sub(1,1)=="[" and b:sub(#b,#b)=="]" then
+        file.write(b:sub(2,#b-1))
+      else
+        file.write(b)
+      end
+      file.write(", ")
+    end
+    file.writeLine("...)")
+    file.writeLine("  end")
+    file.writeLine("}")
+    file.close()
+    log("&7Created command &B"..name)
+  end
+}

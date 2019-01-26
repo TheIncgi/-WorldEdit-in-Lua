@@ -1,0 +1,14 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+return {
+  author = "TheINCGI",
+  desc = {
+    "&f&Npos2",
+    "set selection corner 2 from player pos"
+  },
+  func = function()
+    theincgi.worldEdit.pos2 = Vector:new{getPlayerBlockPos()}
+    theincgi.worldEdit.updateSelection()
+    log(string.format("&7Pos 2 set to <&f%d&7,&f%d&7,&f%d&7>", table.unpack(we.pos2)))
+  end
+}

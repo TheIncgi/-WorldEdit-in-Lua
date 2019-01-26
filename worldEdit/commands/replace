@@ -1,0 +1,33 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+return {
+  author = "TheINCGI",
+  desc = {"&Nreplace&f <&b&NoldID&f> [&e&Ndmg&f] <&b&NnewID&f> [&e&Ndmg&f]",
+    "Replace 1 block type with another",
+    "Id of block to replace",
+    "damage value of block to be replaced\n&dDefault: &f0\n"..
+    "&aNote:&f &c-1&f acts as ALL",
+    "Id of block to place where the old one was",
+    "damage value of block to be placed\n&dDefault: &f1",
+  },
+  func = function(oldID, dmg, newID, dmg2, ...)
+    local q1 = we.pos1:min(we.pos2)
+    local q2 = we.pos1:max(we.pos2)
+    if type(dmg) == "string" then --skipped oldDamage
+      dmg2 = newID
+      newID = dmg
+      dmg = 0
+    end
+    dmg2 = dmg2 or 0
+    if(dmg==-1)then
+      for i = 0, 15 do
+        say(string.format("/fill %d %d %d %d %d %d ", table.unpack(q1..q2))..
+            string.format("%s %d replace %s %d", oldId, i, newID, dmg2))
+      end
+    else
+      say(string.format("/fill %d %d %d %d %d %d ", table.unpack(q1..q2))..
+          string.format("%s %d replace %s %d", newID, dmg2, oldID, dmg))
+    end
+    
+  end
+}

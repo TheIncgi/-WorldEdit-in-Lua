@@ -1,0 +1,50 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+
+return {
+  author = "TheINCGI",
+  desc = {
+    "&f&Nexpand&f [&e&Ndirection&f] [&e&Namount&f]",
+    "expands the selection in the faced or given direction",
+    "north, east, south, west, up, down,\nx+, x-, y+, y-, z+ z-\nDefaults to dir you are looking in",
+    "defaults to 1"
+  },
+  func = function(dirName, amount)
+    if not dirName then
+      dirName = theincgi.worldEdit.getPlayerDir()
+      amount = 1
+    elseif not amount then
+      if(type(dirName)=="number")then
+        amount = dirName
+        dirName = theincgi.worldEdit.getPlayerDir()
+      else
+        amount = 1
+        --dirname unchanged
+      end
+    end --else both are set
+    --log(dirName)
+    local q1, q2 = we.pos1:min(we.pos2), we.pos1:max(we.pos2)
+    local dir = theincgi.worldEdit.dirs[dirName]
+    if(amount < 0)then dir = -dir amount = -amount end
+    local m
+    if     dir[1]==1 then
+      m = ((q2[1] == we.pos1[1]) and we.pos1) or we.pos2
+    elseif dir[1]==-1 then
+      m = ((q1[1] == we.pos1[1]) and we.pos1) or we.pos2
+      
+    elseif dir[2]==1 then
+      m = ((q2[2] == we.pos1[2]) and we.pos1) or we.pos2
+    elseif dir[2]==-1 then
+      m = ((q1[2] == we.pos1[2]) and we.pos1) or we.pos2
+      
+    elseif dir[3]==1 then
+      m = ((q2[3] == we.pos1[3]) and we.pos1) or we.pos2
+    elseif dir[3]==-1 then
+      m = ((q1[3] == we.pos1[3]) and we.pos1) or we.pos2
+    end
+    dir = dir*amount
+    m[1],m[2],m[3] = m[1]+dir[1] ,m[2]+dir[2] ,m[3]+dir[3]
+    theincgi.worldEdit.updateSelection()
+    log("&7expanded by "..amount)
+  end
+}

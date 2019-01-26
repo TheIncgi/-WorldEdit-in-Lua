@@ -1,0 +1,11 @@
+local we = theincgi.worldEdit
+local Vector = theincgi.Vector
+return {
+  author = "TheINCGI",
+  desc = {"&Nnight&f",
+    "Sets time to midnight",
+  },
+  func = function(...)
+    say("/time set 18000")
+  end
+}
