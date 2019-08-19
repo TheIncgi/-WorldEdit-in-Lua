@@ -17,9 +17,12 @@ theincgi.worldEdit.dirs["z-"] = theincgi.worldEdit.dirs.north
 
 function theincgi.worldEdit.updateSelection()
   local we = theincgi.worldEdit
-  local clear = "block:minecraft:blocks/glass"
-  local red =  "block:minecraft:blocks/glass_red"
-  local blue = "block:minecraft:blocks/glass_light_blue"
+  local clear = __GAME_VERSION < "1.14" and "block:minecraft:blocks/glass"
+                                         or "block:minecraft:block/glass"
+  local red =   __GAME_VERSION < "1.14" and "block:minecraft:blocks/glass_red" 
+                                         or "block:minecraft:block/red_stained_glass"
+  local blue = __GAME_VERSION  < "1.14" and "block:minecraft:blocks/glass_light_blue" or
+                                            "block:minecraft:block/light_blue_stained_glass"
   we.h3d = we.h3d or {}
   we.h3d.up    = we.h3d.up or hud3D.newPane("xz")
   we.h3d.down  = we.h3d.down or hud3D.newPane("xz")
