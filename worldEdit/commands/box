@@ -1,34 +1,70 @@
 local we = theincgi.worldEdit
 local Vector = theincgi.Vector
-return {
+
+if __GAME_VERSION < "1.14" then
+  return {
+    author = "TheINCGI",
+    desc = {"&Nbox&f <&b&NblockID&f> [&e&Ndmg&f]",
+      "Creates a hollow box",
+      "Material ID to use",
+      "Damage value for the material",
+    },
+    func = function(blockID, dmg, ...)
+      dmg = dmg or 0
+      local q1 = we.pos1:min(we.pos2)
+      local q2 = we.pos1:max(we.pos2)
+      
+      local tmp = q2:clone()
+      tmp[1] = q1[1]
+      say(string.format("/fill %d %d %d %d %d %d ",table.unpack(q1..tmp))..string.format("%s %d", blockID, dmg))
+      tmp = q2:clone()
+      tmp[2] = q1[2]
+      say(string.format("/fill %d %d %d %d %d %d ",table.unpack(q1..tmp))..string.format("%s %d", blockID, dmg))
+      tmp = q2:clone()
+      tmp[3] = q1[3]
+      say(string.format("/fill %d %d %d %d %d %d ",table.unpack(q1..tmp))..string.format("%s %d", blockID, dmg))
+      tmp = q1:clone()
+      tmp[1] = q2[1]
+      say(string.format("/fill %d %d %d %d %d %d ",table.unpack(tmp..q2))..string.format("%s %d", blockID, dmg))
+      tmp = q1:clone()
+      tmp[2] = q2[2]
+      say(string.format("/fill %d %d %d %d %d %d ",table.unpack(tmp..q2))..string.format("%s %d", blockID, dmg))
+      tmp = q1:clone()
+      tmp[3] = q2[3]
+      say(string.format("/fill %d %d %d %d %d %d ",table.unpack(tmp..q2))..string.format("%s %d", blockID, dmg))
+    end
+  }
+else
+  return {
   author = "TheINCGI",
-  desc = {"&Nbox&f <&b&NblockID&f> [&e&Ndmg&f]",
+  desc = {"&Nbox&f <&b&NblockID&f>",
     "Creates a hollow box",
     "Material ID to use",
-    "Damage value for the material",
   },
-  func = function(blockID, dmg, ...)
+  func = function(blockID, ...)
     dmg = dmg or 0
     local q1 = we.pos1:min(we.pos2)
     local q2 = we.pos1:max(we.pos2)
     
     local tmp = q2:clone()
     tmp[1] = q1[1]
-    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(q1..tmp))..string.format("%s %d", blockID, dmg))
+    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(q1..tmp))..string.format("%s", blockID))
     tmp = q2:clone()
     tmp[2] = q1[2]
-    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(q1..tmp))..string.format("%s %d", blockID, dmg))
+    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(q1..tmp))..string.format("%s", blockID))
     tmp = q2:clone()
     tmp[3] = q1[3]
-    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(q1..tmp))..string.format("%s %d", blockID, dmg))
+    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(q1..tmp))..string.format("%s", blockID))
     tmp = q1:clone()
     tmp[1] = q2[1]
-    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(tmp..q2))..string.format("%s %d", blockID, dmg))
+    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(tmp..q2))..string.format("%s", blockID))
     tmp = q1:clone()
     tmp[2] = q2[2]
-    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(tmp..q2))..string.format("%s %d", blockID, dmg))
+    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(tmp..q2))..string.format("%s", blockID))
     tmp = q1:clone()
     tmp[3] = q2[3]
-    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(tmp..q2))..string.format("%s %d", blockID, dmg))
+    say(string.format("/fill %d %d %d %d %d %d ",table.unpack(tmp..q2))..string.format("%s", blockID))
   end
 }
+
+end
